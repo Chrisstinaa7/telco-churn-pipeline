@@ -25,5 +25,10 @@ def transform_data():
 # Assemble features 
     assembler = VectorAssembler( inputCols=[f"{c}_vec" for c in categorical] + numeric, outputCol="features" ) 
     scaled = StandardScaler(inputCol="features", outputCol="scaledFeatures")
+# Pipeline 
+    from pyspark.ml import Pipeline 
+    pipeline = Pipeline(stages=indexers + encoders + [assembler, scaled]) 
+    model = pipeline.fit(df) 
+    df_transformed = model.transform(df)
 
     
