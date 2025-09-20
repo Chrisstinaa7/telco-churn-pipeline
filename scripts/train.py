@@ -13,3 +13,7 @@ def train_model():
     lr = LogisticRegression(featuresCol="scaledFeatures", labelCol="label") 
     lr_model = lr.fit(train) 
     lr_preds = lr_model.transform(test)
+# Random Forest 
+    rf = RandomForestClassifier(featuresCol="scaledFeatures", labelCol="label", numTrees=50) 
+    rf_model = rf.fit(train) 
+    rf_preds = rf_model.transform(test)
