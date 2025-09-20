@@ -9,4 +9,7 @@ def train_model():
 
     train, test = df.randomSplit([0.8, 0.2], seed=42)
 
-   
+# Logistic Regression 
+    lr = LogisticRegression(featuresCol="scaledFeatures", labelCol="label") 
+    lr_model = lr.fit(train) 
+    lr_preds = lr_model.transform(test)
