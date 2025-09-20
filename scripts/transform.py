@@ -31,4 +31,13 @@ def transform_data():
     model = pipeline.fit(df) 
     df_transformed = model.transform(df)
 
+# Save processed data 
+    df_transformed.write.mode("overwrite").parquet(PROCESSED_PATH) 
+    print("Processed data saved at:", PROCESSED_PATH) 
+    return df_transformed 
+
+if __name__ == "__main__": 
+    df_processed = transform_data() 
+    df_processed.show(5)
+
     
