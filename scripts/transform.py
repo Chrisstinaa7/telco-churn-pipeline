@@ -15,4 +15,15 @@ def transform_data():
     indexer = StringIndexer(inputCol="Churn", outputCol="label")
     df = indexer.fit(df).transform(df)
 
+# Categorical columns 
+    categorical = [c for c, t in df.dtypes if t == "string" and c != "Churn"] 
+    indexers = [StringIndexer(inputCol=c, outputCol=f"{c}_idx") for c in categorical] 
+    encoders = [OneHotEncoder(inputCol=f"{c}_idx", outputCol=f"{c}_vec") for c in categorical] 
+    
+# Numerical columns 
+    numeric = [c for c, t in df.dtypes if t in ["int", "double"]] 
+# Assemble features 
+    assembler = VectorAssembler( inputCols=[f"{c}_vec" for c in categorical] + numeric, outputCol="features" ) 
+    scaled = StandardScaler(inputCol="features", outputCol="scaledFeatures")
+
     
