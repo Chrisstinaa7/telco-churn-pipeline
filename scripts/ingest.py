@@ -6,3 +6,7 @@ def ingest_data():
     print("Raw data schema:") 
     df.printSchema() 
     return df
+
+if __name__ == "__main__": 
+    df = ingest_data() 
+    df.show(5)
